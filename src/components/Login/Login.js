@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Login.scss";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = (props) => {
   let history = useHistory();
   const handleCreateNewAccount = () => {
     history.push("/register");
   };
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/test-api").then((data) => {
+      console.log("View data", data);
+    });
+  }, []);
   return (
     <div className="login-container">
       <div className="container">
