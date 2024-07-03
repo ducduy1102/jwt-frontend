@@ -10,17 +10,16 @@
   border: 1px solid yellow;
 }
 
-.login-container {
+.register-container {
   background-color: #f0f2f5;
   min-height: 100vh;
   padding-top: 20px;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
   .content-right {
-    min-height: 400px;
+    min-height: 580px;
 
     border: none;
     border-radius: 10px;
@@ -33,6 +32,9 @@
       font-size: 30px;
       font-weight: 600;
       color: #1877f2;
+    }
+    .form-control {
+      margin-top: 4px;
     }
   }
 
