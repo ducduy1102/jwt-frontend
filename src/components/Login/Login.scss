@@ -11,8 +11,43 @@
 }
 
 .login-container {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding-top: 20px;
+
   .content-right {
-    border: 1px solid gray;
+    border: none;
     border-radius: 10px;
+    background-color: #fff;
+
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    .brand {
+      text-transform: uppercase;
+      font-style: 30px;
+      font-weight: 600;
+      color: #1877f2;
+    }
+  }
+
+  .content-left {
+    margin-top: 50px;
+    .brand {
+      text-transform: uppercase;
+      font-style: 20px;
+      font-weight: 600;
+      color: #1877f2;
+    }
+    .detail {
+      font-size: 20px;
+    }
+  }
+
+  .forgot-password {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
