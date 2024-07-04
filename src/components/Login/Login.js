@@ -8,11 +8,11 @@ const Login = (props) => {
   const handleCreateNewAccount = () => {
     history.push("/register");
   };
-  useEffect(() => {
-    axios.get("http://localhost:8080/api/test-api").then((data) => {
-      console.log("View data", data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("http://localhost:8080/api/test-api").then((data) => {
+  //     console.log("View data", data);
+  //   });
+  // }, []);
   return (
     <div className="login-container">
       <div className="container">
