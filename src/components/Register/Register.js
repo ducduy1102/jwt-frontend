@@ -86,6 +86,13 @@ const Register = (props) => {
     }
   };
 
+  const handlePressEnter = (e) => {
+    if (e.charCode === 13 && e.code === "Enter") {
+      // alert("Click me!");
+      handleRegister();
+    }
+  };
+
   return (
     <div className="register-container">
       <div className="container">
@@ -168,6 +175,7 @@ const Register = (props) => {
                 }
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                onKeyPress={(e) => handlePressEnter(e)}
               />
             </div>
             <button
