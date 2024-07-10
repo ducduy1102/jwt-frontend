@@ -76,12 +76,11 @@ const Register = (props) => {
     let check = isValidInputs();
     if (check === true) {
       let response = await registerNewUser(email, phone, username, password);
-      let data = response.data;
-      if (Number(data.errorCode) === 0) {
-        toast.success(data.message);
+      if (Number(response.errorCode) === 0) {
+        toast.success(response.message);
         history.push("/login");
       } else {
-        toast.error(data.message);
+        toast.error(response.message);
       }
     }
   };

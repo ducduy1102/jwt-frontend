@@ -59,14 +59,14 @@ const ModalUser = (props) => {
 
   const getGroups = async () => {
     let res = await fetchGroup();
-    if (res && res.data && res.data.errorCode === 0) {
-      setUserGroup(res.data.data);
-      if (res.data.data && res.data.data.length > 0) {
-        let groups = res.data.data;
+    if (res && res.errorCode === 0) {
+      setUserGroup(res.data);
+      if (res.data && res.data.length > 0) {
+        let groups = res.data;
         setUserData({ ...userData, group: groups[0].id });
       }
     } else {
-      toast.error(res.data.message);
+      toast.error(res.message);
     }
   };
 
@@ -115,7 +115,7 @@ const ModalUser = (props) => {
               groupId: Number(userData["group"]),
             });
 
-      if (res.data && res.data.errorCode === 0) {
+      if (res && res.errorCode === 0) {
         props.onHide();
         setUserData({
           ...defaulUserData,
@@ -123,10 +123,10 @@ const ModalUser = (props) => {
         });
       }
 
-      if (res.data && res.data.errorCode !== 0) {
-        toast.error(res.data.message);
+      if (res && res.errorCode !== 0) {
+        toast.error(res.message);
         let _validInputs = _.cloneDeep(validInputsDefault);
-        _validInputs[res.data.data] = false;
+        _validInputs[res.data] = false;
         setValidInputs(_validInputs);
       }
     }

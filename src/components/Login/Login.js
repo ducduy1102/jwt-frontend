@@ -35,7 +35,7 @@ const Login = (props) => {
     }
     let response = await loginUser(valueLogin, password);
     console.log(response.data);
-    if (response && response.data && +response.data.errorCode === 0) {
+    if (response && +response.errorCode === 0) {
       // success
       let data = { isAuthenticated: true, token: "fake token" };
       sessionStorage.setItem("account", JSON.stringify(data));
@@ -44,9 +44,9 @@ const Login = (props) => {
 
       // redux
     }
-    if (response && response.data && +response.data.errorCode !== 0) {
+    if (response && +response.errorCode !== 0) {
       // error
-      toast.error(response.data.message);
+      toast.error(response.message);
     }
   };
 
