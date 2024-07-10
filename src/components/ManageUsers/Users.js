@@ -76,16 +76,25 @@ const Users = (props) => {
     setIsShowModalUser(true);
   };
 
+  const handleRefresh = async () => {
+    await fetchUsers();
+  };
+
   return (
     <>
       <div className="container">
         <div className="manage-users-container">
           <div className="user-header">
-            <div className="title">
-              <h3>Table Users</h3>
+            <div className="mt-3 title">
+              <h3>Manage Users</h3>
             </div>
-            <div className="actions">
-              <button className="btn btn-success">Refresh</button>
+            <div className="my-3 actions">
+              <button
+                className="btn btn-success refresh"
+                onClick={() => handleRefresh()}
+              >
+                <i className="fa fa-refresh"></i>Refresh
+              </button>
               <button
                 className="btn btn-primary"
                 onClick={() => {
@@ -93,7 +102,7 @@ const Users = (props) => {
                   setActionModalUser("CREATE");
                 }}
               >
-                Add new user
+                <i className="fa fa-plus-circle"></i>Add new user
               </button>
             </div>
           </div>
@@ -123,22 +132,24 @@ const Users = (props) => {
                           <td>{item.username}</td>
                           <td>{item.Group ? item.Group.name : ""}</td>
                           <td>
-                            <button
-                              className="mx-3 btn btn-warning"
+                            <span
+                              title="Edit"
+                              className="edit"
                               onClick={() => {
                                 handleEditUser(item);
                               }}
                             >
-                              Edit
-                            </button>
-                            <button
-                              className="btn btn-danger"
+                              <i className="fa fa-pencil"></i>
+                            </span>
+                            <span
+                              title="Delete"
+                              className="delete"
                               onClick={() => {
                                 handleDeleteUser(item);
                               }}
                             >
-                              Delete
-                            </button>
+                              <i className="fa fa-trash-o"></i>
+                            </span>
                           </td>
                         </tr>
                       );
