@@ -54,6 +54,8 @@ const Login = (props) => {
           groupWithRoles,
         },
       };
+
+      localStorage.setItem("jwt", token);
       loginContext(data);
       history.push("/users");
 
