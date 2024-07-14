@@ -43,21 +43,22 @@ const Login = (props) => {
       let groupWithRoles = response.data.groupWithRoles;
       let email = response.data.email;
       let username = response.data.username;
-      let access_token = response.data.access_token;
+      let token = response.data.access_token;
 
       let data = {
-        isAuthenticated: false,
-        access_token,
+        isAuthenticated: true,
+        token,
         account: {
           email,
           username,
           groupWithRoles,
         },
       };
-      sessionStorage.setItem("account", JSON.stringify(data));
+      // sessionStorage.setItem("account", JSON.stringify(data));
       loginContext(data);
       history.push("/users");
       // window.location.reload();
+      // console.log("data", data);
 
       // redux
     }
@@ -74,13 +75,13 @@ const Login = (props) => {
     }
   };
 
-  useEffect(() => {
-    let session = sessionStorage.getItem("account");
-    if (session) {
-      history.push("/");
-      window.location.reload();
-    }
-  }, []);
+  // useEffect(() => {
+  //   let session = sessionStorage.getItem("account");
+  //   if (session) {
+  //     history.push("/");
+  //     window.location.reload();
+  //   }
+  // }, []);
 
   return (
     <div className="login-container">

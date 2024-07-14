@@ -42,6 +42,10 @@ const updateCurrentUser = (userData) => {
   });
 };
 
+const getUserAccount = () => {
+  return axios.get("/api/v1/account");
+};
+
 export {
   registerNewUser,
   loginUser,
@@ -50,4 +54,5 @@ export {
   fetchGroup,
   createNewUser,
   updateCurrentUser,
+  getUserAccount,
 };
