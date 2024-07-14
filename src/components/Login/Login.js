@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Login.scss";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../services/userService";
+import { UserContext } from "../../context/UserContext";
 
 const Login = (props) => {
+  const { loginContext } = useContext(UserContext);
+
   let history = useHistory();
 
   const [valueLogin, setValueLogin] = useState("");
@@ -34,13 +37,27 @@ const Login = (props) => {
       return;
     }
     let response = await loginUser(valueLogin, password);
-    console.log(response.data);
+    // console.log(response.data);
     if (response && +response.errorCode === 0) {
       // success
-      let data = { isAuthenticated: true, token: "fake token" };
+      let groupWithRoles = response.data.groupWithRoles;
+      let email = response.data.email;
+      let username = response.data.username;
+      let access_token = response.data.access_token;
+
+      let data = {
+        isAuthenticated: false,
+        access_token,
+        account: {
+          email,
+          username,
+          groupWithRoles,
+        },
+      };
       sessionStorage.setItem("account", JSON.stringify(data));
+      loginContext(data);
       history.push("/users");
-      window.location.reload();
+      // window.location.reload();
 
       // redux
     }
