@@ -3,27 +3,40 @@ import Nav from "./components/Navigation/Nav";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Bars } from "react-loader-spinner";
 import AppRoutes from "./routes/AppRoutes";
+import { UserContext } from "./context/UserContext";
 
 function App() {
-  // const [account, setAccount] = useState({});
-  // useEffect(() => {
-  //   let session = sessionStorage.getItem("account");
-  //   if (session) {
-  //     setAccount(JSON.parse(session));
-  //   }
-  // }, []);
+  const { user } = useContext(UserContext);
 
   return (
     <>
       <Router>
-        <div className="app-header">
-          <Nav />
-        </div>
-        <div className="app-container">
-          <AppRoutes />
-        </div>
+        {user && user.isLoading ? (
+          <div className="loading-container">
+            <Bars
+              height="80"
+              width="80"
+              color="#1877f2"
+              ariaLabel="bars-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+            <div>Loading...</div>
+          </div>
+        ) : (
+          <>
+            <div className="app-header">
+              <Nav />
+            </div>
+            <div className="app-container">
+              <AppRoutes />
+            </div>
+          </>
+        )}
       </Router>
       <ToastContainer
         position="top-right"

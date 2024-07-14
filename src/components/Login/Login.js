@@ -54,11 +54,8 @@ const Login = (props) => {
           groupWithRoles,
         },
       };
-      // sessionStorage.setItem("account", JSON.stringify(data));
       loginContext(data);
       history.push("/users");
-      // window.location.reload();
-      // console.log("data", data);
 
       // redux
     }
@@ -74,14 +71,6 @@ const Login = (props) => {
       handleLogin();
     }
   };
-
-  // useEffect(() => {
-  //   let session = sessionStorage.getItem("account");
-  //   if (session) {
-  //     history.push("/");
-  //     window.location.reload();
-  //   }
-  // }, []);
 
   return (
     <div className="login-container">
