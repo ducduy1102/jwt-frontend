@@ -1,5 +1,4 @@
 import "./App.scss";
-import Nav from "./components/Navigation/Nav";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
 import AppRoutes from "./routes/AppRoutes";
 import { UserContext } from "./context/UserContext";
+import NavHeader from "./components/Navigation/Nav";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -30,7 +30,7 @@ function App() {
         ) : (
           <>
             <div className="app-header">
-              <Nav />
+              <NavHeader />
             </div>
             <div className="app-container">
               <AppRoutes />
