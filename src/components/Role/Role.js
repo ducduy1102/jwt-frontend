@@ -2,32 +2,37 @@ import React, { useEffect, useState } from "react";
 import "./Roles.scss";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
+import { createRole } from "../../services/roleService";
 
-const Roles = () => {
+const Role = () => {
+  const dataChilDefault = { url: "", description: "", isValidUrl: true };
   const [listChilds, setListChilds] = useState({
-    child1: { url: "", description: "" },
+    child1: dataChilDefault,
   });
 
   useEffect(() => {
     Object.entries(listChilds).map(([key, value]) => {
-      console.log(key, value);
+      // console.log(key, value);
     });
   }, []);
 
   const handleOnChangeInput = (name, value, key) => {
     let _listChilds = _.cloneDeep(listChilds);
-
     _listChilds[key][name] = value;
+
+    if (value && name === "url") {
+      _listChilds[key]["isValidUrl"] = true;
+    }
+
     setListChilds(_listChilds);
     // console.log(_listChilds);
   };
 
-  const handleAddnewInput = () => {
+  const handleAddNewInput = () => {
     let _listChilds = _.cloneDeep(listChilds);
-    _listChilds[`child-${uuidv4()}`] = {
-      url: "",
-      description: "",
-    };
+    _listChilds[`child-${uuidv4()}`] = dataChilDefault;
+
     setListChilds(_listChilds);
   };
 
@@ -35,7 +40,39 @@ const Roles = () => {
     let _listChilds = _.cloneDeep(listChilds);
     delete _listChilds[key];
     setListChilds(_listChilds);
-    // console.log(key);
+  };
+
+  const buildDataToPersist = () => {
+    let _listChilds = _.cloneDeep(listChilds);
+    let result = [];
+    Object.entries(_listChilds).map(([key, child], index) => {
+      result.push({
+        url: child.url,
+        description: child.description,
+      });
+    });
+    return result;
+  };
+
+  const handleSave = async () => {
+    let invalidObj = Object.entries(listChilds).find(([key, child], index) => {
+      return child && !child.url;
+    });
+    if (!invalidObj) {
+      // call api
+      let data = buildDataToPersist();
+      let res = await createRole(data);
+      if (res && res.errorCode === 0) {
+        toast.success(res.message);
+      }
+    } else {
+      // Error
+      toast.error("Input URL must not be empty...");
+      let _listChilds = _.cloneDeep(listChilds);
+      const key = invalidObj[0];
+      _listChilds[key]["isValidUrl"] = false;
+      setListChilds(_listChilds);
+    }
   };
 
   return (
@@ -52,7 +89,11 @@ const Roles = () => {
                       <label>URL</label>
                       <input
                         type="text"
-                        className="form-control"
+                        className={
+                          child.isValidUrl
+                            ? "form-control"
+                            : "form-control is-invalid"
+                        }
                         value={child.url}
                         onChange={(e) =>
                           handleOnChangeInput("url", e.target.value, key)
@@ -77,7 +118,7 @@ const Roles = () => {
                     <div className="mt-4 col-sm-2 actions">
                       <i
                         className="fa fa-plus-circle add"
-                        onClick={() => handleAddnewInput()}
+                        onClick={() => handleAddNewInput()}
                       ></i>
                       {index >= 1 && (
                         <i
@@ -90,7 +131,12 @@ const Roles = () => {
                 );
               })}
             </div>
-            <button className="mt-3 btn btn-warning">Save</button>
+            <button
+              className="mt-3 btn btn-warning"
+              onClick={() => handleSave()}
+            >
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -98,4 +144,4 @@ const Roles = () => {
   );
 };
 
-export default Roles;
+export default Role;
