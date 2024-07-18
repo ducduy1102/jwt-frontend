@@ -157,7 +157,7 @@ const Users = (props) => {
                 ) : (
                   <>
                     <tr>
-                      <td>Not found users</td>
+                      <td colSpan={4}>Not found users</td>
                     </tr>
                   </>
                 )}
