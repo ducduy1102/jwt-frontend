@@ -28,7 +28,11 @@ const NavHeader = (props) => {
     }
   };
 
-  if ((user && user.isAuthenticated === true) || location.pathname === "/") {
+  if (
+    (user && user.isAuthenticated === true) ||
+    location.pathname === "/" ||
+    location.pathname === "/about"
+  ) {
     return (
       <>
         <div className="nav-header">
@@ -38,9 +42,10 @@ const NavHeader = (props) => {
                 <Navbar.Brand href="#home">
                   <img
                     src={logo}
-                    width="30"
+                    width="50"
                     height="30"
                     className="align-top d-inline-block"
+                    alt="React-logo"
                   />
                 </Navbar.Brand>
                 <span className="brand-name">JWT Admin</span>

@@ -5,16 +5,17 @@ import { Switch, Route } from "react-router-dom";
 import PrivateRoutes from "./PrivateRoutes";
 import Role from "../components/Role/Role";
 import GroupRole from "../components/GroupRole/GroupRole";
+import Home from "../components/Home/Home";
+import Project from "../components/Project/Project";
+import About from "../components/About/About";
 
 const AppRoutes = (props) => {
-  const Project = () => {
-    return <span>Project</span>;
-  };
   return (
     <>
       <Switch>
         <PrivateRoutes path="/users" component={Users} />
         <PrivateRoutes path="/projects" component={Project} />
+        <PrivateRoutes path="/about" component={About} />
         <PrivateRoutes path="/roles" component={Role} />
         <PrivateRoutes path="/group-role" component={GroupRole} />
 
@@ -26,9 +27,11 @@ const AppRoutes = (props) => {
         </Route>
 
         <Route path="/" exact>
-          Home
+          <Home />
         </Route>
-        <Route path="*">404 Not Found</Route>
+        <Route path="*">
+          <div className="container">404 Not Found</div>
+        </Route>
       </Switch>
     </>
   );

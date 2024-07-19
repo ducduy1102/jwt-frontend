@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 // Set config defaults when creating the instance
 const instance = axios.create({
+  // baseURL: process.env.REACT_APP_BACKEND_URL,
   baseURL: "http://localhost:8080",
 });
 
@@ -40,8 +41,14 @@ instance.interceptors.response.use(
     switch (status) {
       // authentication (token related issues)
       case 401: {
-        toast.error("Unauthorized the user. Please login...");
-        console.log("err.response.data", err.response.data);
+        if (
+          window.location.pathname !== "/" &&
+          window.location !== "/login" &&
+          window.location !== "/register"
+        ) {
+          toast.error("Unauthorized the user. Please login...");
+        }
+        // console.log("err.response.data", err.response.data);
         return err.response.data;
       }
 
